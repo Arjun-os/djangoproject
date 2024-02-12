@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<form style="max-width: 800px; margin: auto;" method="POST" >
+   {% csrf_token %}
+  <div class="mb-3">
+    <label class="form-label" >Username</label>
+    <input type="text" class="form-control" name="u" placeholder="Enter your username">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control"  name="p" placeholder="Enter your password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
+
+

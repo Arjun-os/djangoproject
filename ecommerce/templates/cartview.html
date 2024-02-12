@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container" style="margin-bottom:100px;">
+<div class="row">
+    <h4 class="text-center">Shopping Cart</h4>
+
+    <div class="col-6 ">
+        <table class="table table-bordered text-center">
+        <tr>
+            <th colspan="5" >Cart Items</th>
+
+        </tr>
+        {% for i in c %}
+        <tr>
+            <td><img src="{{i.product.image.url}}" height="150px" width="150px"> </td>
+            <td><b>{{i.product.name}}</b></td>
+            <td><b>Product ID:{{i.product.id}}</b><br>
+                <b>Unit price:{{i.product.price}}</b><br>
+                <b>Quantity:{{i.quantity}}*{{i.product.price}}</b><br>
+            </td>
+
+            <td>Subtotal:{{i.subtotal}}</td>
+            <td>
+                {% if i.product.stock > 0 %}
+
+                <a href="{% url 'cart:addtocart' i.product.name %}"><i class="fa-solid fa-circle-plus text-danger "></i></a>
+                <a href="{% url 'cart:cart_remove' i.product.name %}"><i class="fa-solid fa-circle-minus text-danger"></i></a>
+                <a href="{% url 'cart:trash' i.product.name %}"><i class="fa-solid fa-trash-can text-danger"></i></a>
+
+                {% else %}
+                 <a href="{% url 'cart:cart_remove' i.product.name %}"><i class="fa-solid fa-circle-minus text-danger"></i></a>
+                <a href="{% url 'cart:trash' i.product.name %}"><i class="fa-solid fa-trash-can text-danger"></i></a>
+{% endif %}
+            </td>
+
+
+        </tr>
+        {% endfor %}
+
+    </table></div>
+
+    <div class="col-4 ms-3">
+        <table class="table table-bordered">
+            <tr>
+            <th colspan="5">Check Out</th>
+
+            </tr>
+            <tr><th>Total:{{total}}</th></tr>
+
+        </table>
+    <a href="{% url 'cart:orderform' %}" class="btn btn-danger">Place Order</a>
+    <a href="{% url 'shop:allcat' %}" class="btn btn-danger" style="position:absolute;right:325px;">Continue Shopping</a>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}
